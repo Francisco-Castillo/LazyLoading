@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Lazy Loading</title>
+  </h:head>
+  <h:body>
+    <div class="ui-g">
+      <div class="ui-lg-2"/>
+      <div class="ui-g-12 ui-md-8 ui-lg-8">
+        <h:form id="frmPrincipal">
+          <p:dataTable id="tblPersonas" 
+                       value="#{personaDataController.listaPersonas}" 
+                       var="p"
+                       paginator="true" 
+                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                       currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                       rowsPerPageTemplate="10,25,50,100"
+                       rows="10"
+                       rowKey="#{p.id}"
+                       selectionMode="single"
+                       selection="#{personaDataController.personaSeleccionada}"
+                       lazy="true"
+                       >
+            <f:facet name="header">
+              Listado de Clientes
+            </f:facet>
+            <p:column headerText="Cod." 
+                      field="id"
+                      filterBy="#{p.id}"
+                      sortable="true" 
+                      sortBy="#{p.id}"
+                      style="text-align: center;"
+                      >
+              <h:outputText value="#{p.id}"/>
+            </p:column>
+            <p:column headerText="Nombre y Apellido" 
+                      field="nombreApellido"
+                      filterBy="#{p.nombreApellido}"
+                      sortable="true"
+                      sortBy="#{p.nombreApellido}">
+              <h:outputText value="#{p.nombreApellido}"/>
+            </p:column>
+            <p:column headerText="Email" 
+                      field="email"
+                      filterBy="#{p.email}"
+                      sortable="true"
+                      sortBy="#{p.email}">
+              <h:outputText value="#{p.email}"/>
+            </p:column>
+          </p:dataTable>
+          <p:blockUI block="tblPersonas" trigger="tblPersonas"/>
+        </h:form>
+      </div>
+    </div>
+  </h:body>
+</html>
+
